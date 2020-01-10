@@ -11,7 +11,6 @@ import AccountPage from '../Account';
 import AdminPage from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
-import SignIn from '../SignIn';
 
 
 const App = () => (
