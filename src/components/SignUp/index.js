@@ -27,10 +27,10 @@ class SignUpForm extends Component {
   }
 }
 
-const SignUpLink = () => {
+const SignUpLink = () => (
   <p>
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
-}
+)
 
 export default SignUp;
