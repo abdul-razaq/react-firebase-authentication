@@ -18,7 +18,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Navigation />
+        <Navigation authUser={authUser} />
         <hr />
 
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
