@@ -18,9 +18,14 @@ const App = props => {
   const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
-    props.firebase.auth.onAuthStateChanged(authUser => {
+    const listener = props.firebase.auth.onAuthStateChanged(authUser => {
       authUser ? setAuthUser(authUser) : setAuthUser(null);
     });
+
+    // ComponentWillUnmount
+    return () => {
+      listener();
+    }
   }, []);
 
   return (
