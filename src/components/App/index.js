@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navigation from '../Navigation';
@@ -11,9 +12,16 @@ import AccountPage from '../Account';
 import AdminPage from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
+import { withFirebase } from '../Firebase';
 
-const App = () => {
+const App = props => {
   const [authUser, setAuthUser] = useState(null);
+
+  useEffect(() => {
+    props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser ? setAuthUser(authUser) : setAuthUser(null);
+    });
+  }, []);
 
   return (
     <Router>
@@ -37,4 +45,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withFirebase(App);
