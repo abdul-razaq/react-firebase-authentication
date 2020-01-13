@@ -13,6 +13,7 @@ import AdminPage from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
 import { withFirebase } from '../Firebase';
+import { AuthUserContext } from '../Session';
 
 const App = props => {
   const [authUser, setAuthUser] = useState(null);
@@ -29,9 +30,10 @@ const App = props => {
   }, []);
 
   return (
-    <Router>
+    <AuthUserContext.Provider value={authUser}>
+      <Router>
       <div>
-        <Navigation authUser={authUser} />
+        <Navigation />
         <hr />
 
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
@@ -47,6 +49,7 @@ const App = props => {
         <Route exact path={ROUTES.ADMIN} component={AdminPage} />
       </div>
     </Router>
+    </AuthUserContext.Provider>
   );
 };
 
