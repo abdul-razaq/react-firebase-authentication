@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+
+import { withFirebase } from '../Firebase';
+
+const INITIAL_STATE = {
+  passwordOne: '',
+  passwordTwo: '',
+  error: null,
+};
 
 
-const PasswordChange = () => (
-  <div>
-    <h1>Password Change</h1>
-  </div>
-);
-
-export default PasswordChange;
+class PasswordChangeForm extends Component {
+  
+}
