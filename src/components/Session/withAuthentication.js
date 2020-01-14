@@ -21,7 +21,7 @@ const withAuthentication = Component => {
       });
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
       this.listener();
     }
 
