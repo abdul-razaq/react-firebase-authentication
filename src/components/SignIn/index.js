@@ -34,6 +34,15 @@ class SignInGoogleBase extends Component {
     this.props.firebase
       .doSignInWithGoogle()
       .then(socialAuthUser => {
+        // Create a user in the Firebase Realtime Database too
+        // first get the user by passing in the socialAuthUser UID in user Firebase method of fetching a single user
+        return this.props.firebase.user(socialAuthUser.user.uid).set({
+          username: socialAuthUser.user.displayName,
+          email: socialAuthUser.user.email,
+          roles: [],
+        });
+      })
+      .then(() => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.HOME);
       })
@@ -112,6 +121,8 @@ class SignInFormBase extends Component {
 
 const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
 
+const SignInGoogle = compose(withRouter, withFirebase)(SignInGoogleBase);
+
 export default SignInPage;
 
-export { SignInForm };
+export { SignInForm, SignInGoogle };
