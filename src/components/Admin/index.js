@@ -10,7 +10,7 @@ const AdminPage = ({ firebase }) => {
   useEffect(() => {
     setLoading(true);
 
-    firebase.users().on('value', snapshot => {
+    firebase.getAllUsers().on('value', snapshot => {
       const usersObject = snapshot.val();
       const usersList = Object.keys(usersObject).map(key => ({
         ...usersObject[key],
@@ -22,7 +22,7 @@ const AdminPage = ({ firebase }) => {
 
     return () => {
       // remove the listener to fetch all users above to avoid memory leaks
-      firebase.users().off();
+      firebase.getAllUsers().off();
     };
   }, []);
 

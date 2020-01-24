@@ -10,32 +10,14 @@ const withAuthorization = condition => Component => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
       // This firebase listener always gives us the recent authenticated user
-      this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-        if (authUser) {
-          this.props.firebase
-            .user(authUser.uid)
-            .once('value')
-            .then(snapshot => {
-              const dbUser = snapshot.val();
-              // default empty roles
-              if (!dbUser.roles) {
-                dbUser.roles = [];
-              }
-              // merge auth and db user
-              authUser = {
-                uid: authUser.uid,
-                email: authUser.email,
-                ...dbUser,
-              };
-
-              if (!condition(authUser)) {
-                this.props.history.push(ROUTES.SIGN_IN);
-              }
-            });
-        } else {
-          this.props.history.push(ROUTES.SIGN_IN);
-        }
-      });
+      this.listener = this.props.firebase.onAuthUserListener(
+        authUser => {
+          if (!condition(authUser)) {
+            this.props.history.push(ROUTES.SIGN_IN);
+          }
+        },
+        () => this.props.history.push(ROUTES.SIGN_IN)
+      );
     }
 
     componentWillMount() {
