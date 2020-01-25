@@ -10,7 +10,6 @@ const rootApp = (
   <FirebaseContext.Provider value={firebaseInstance}>
     <App />
   </FirebaseContext.Provider>
-)
-
+);
 
 ReactDOM.render(rootApp, document.querySelector('#root'));
